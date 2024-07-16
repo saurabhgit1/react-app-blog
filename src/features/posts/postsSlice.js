@@ -6,11 +6,25 @@ const initialState = [
     title: "Learning Redux Toolkit",
     content:
       "Redux tool kit is an important tool to learn for state management",
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
   {
     id: "2",
     title: "Slicess....",
     content: "The more I say slice, the more funnier it gets",
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
 ];
 
@@ -29,11 +43,25 @@ export const postSlice = createSlice({
             id: nanoid(),
             title,
             content,
-            id: userId,
-            date: new Date().toISOString()
+            userId,
+            date: new Date().toISOString(),
+            reactions: {
+              thumbsUp: 0,
+              wow: 0,
+              heart: 0,
+              rocket: 0,
+              coffee: 0,
+            },
           },
         };
       },
+    },
+    addReaction: (state, action) => {
+      const { post, reactionName } = action.payload;
+      const index = state.findIndex((statePost) => statePost.id === post.id);
+      if (index !== -1) {
+        state[index]["reactions"][reactionName]++;
+      }
     },
   },
 });
@@ -42,6 +70,6 @@ export const selectAllPosts = (state) => {
   return state.posts;
 };
 
-export const { addPost } = postSlice.actions;
+export const { addPost, addReaction } = postSlice.actions;
 
 export default postSlice.reducer;

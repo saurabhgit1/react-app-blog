@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectAllPosts } from "./postsSlice";
 import PostsAuthors from "./PostsAuthors";
 import TimesAgo from "./TimesAgo";
+import PostReactions from "./PostReactions";
 
 function PostsList() {
   const postsList = useSelector(selectAllPosts);
@@ -11,8 +12,9 @@ function PostsList() {
       <article className="postBox">
         <h2>{post.title}</h2>
         <h3>{post.content}</h3>
-        <PostsAuthors userId={post.id}></PostsAuthors>
+        <PostsAuthors userId={post.userId}></PostsAuthors>
         <TimesAgo timeStamp={post.date}></TimesAgo>
+        <PostReactions post={post}></PostReactions>
       </article>
     );
   });
